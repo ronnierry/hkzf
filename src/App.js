@@ -13,7 +13,7 @@ function App() {
           <li><Link to='/city-list'>选择城市</Link></li>
         </ul>
         <Routes>
-          <Route path='/' element={<Home></Home>}></Route>
+          <Route path='/home/*' element={<Home></Home>}></Route>
           <Route path='/city-list' element={<CityList></CityList>}></Route>
         </Routes>
       </Router>
