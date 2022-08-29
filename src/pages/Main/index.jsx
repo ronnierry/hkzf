@@ -25,6 +25,21 @@ const navList = [
     }
 ]
 
+function NavListRender(props) {
+    const { navList } = props;
+    return navList.map(x => {
+        return (
+            <Grid.Item>
+                <div key={x.title}>
+                    <Image src={x.imgSrc} ></Image>
+                    <AutoCenter>{x.title}</AutoCenter>
+                </div>
+            </Grid.Item>
+
+        )
+    })
+}
+
 export default function Main() {
     return (
         <div>
@@ -34,23 +49,9 @@ export default function Main() {
             <div>
                 <Card>
                     <Grid columns={4} gap={10}>
-                        {
-                            navList.map(x => {
-                                return (
-                                    <Grid.Item>
-                                        <div key={x.title}>
-                                            <Image src={x.imgSrc} ></Image>
-                                            <AutoCenter>{x.title}</AutoCenter>
-                                        </div>
-                                    </Grid.Item>
-
-                                )
-                            })
-                        }
-
+                        <NavListRender navList={navList}></NavListRender>
                     </Grid>
                 </Card>
-
             </div>
 
         </div>
