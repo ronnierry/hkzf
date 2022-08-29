@@ -15,33 +15,32 @@ import {
 } from 'antd-mobile-icons'
 import Main from "../Main";
 
+const tabs = [
+    {
+        key: '/home/main',
+        title: '首页',
+        icon: <AppOutline />,
+    },
+    {
+        key: '/home/todo',
+        title: '找房',
+        icon: <UnorderedListOutline />,
+    },
+    {
+        key: '/home/news',
+        title: '消息',
+        icon: <MessageOutline />,
+    },
+    {
+        key: '/home/my',
+        title: '我的',
+        icon: <UserOutline />,
+    },
+]
 
-const Bottom = (props) => {
-    const tabs = [
-        {
-            key: '/home/main',
-            title: '首页',
-            icon: <AppOutline />,
-        },
-        {
-            key: '/home/todo',
-            title: '待办',
-            icon: <UnorderedListOutline />,
-        },
-        {
-            key: '/home/news',
-            title: '消息',
-            icon: <MessageOutline />,
-        },
-        {
-            key: '/home/my',
-            title: '我的',
-            icon: <UserOutline />,
-        },
-    ]
-
+const Bottom = () => {
     // const history = useHistory()
-    const { changeNavBarTitle } = props;
+    // const { changeNavBarTitle } = props;
     const location = useLocation()
     const { pathname } = location
 
@@ -51,26 +50,15 @@ const Bottom = (props) => {
     const setRouteActive = (value) => {
         //   history.push(value)
         navigate(value)
-        changeNavBarTitleInBottom(value)
+        // changeNavBarTitleInBottom(value)
         // setActiveKey(value)
     }
 
-    const changeNavBarTitleInBottom = (path) => {
-        console.log(path);
-        if (path) {
-            let tab = tabs.find(x => {
-                return x.key === path;
-            })
-            if (tab) {
-                changeNavBarTitle(tab.title)
-            }
 
-        }
-    }
 
-    useEffect(() => {
-        changeNavBarTitleInBottom(pathname)
-    }, [])
+    // useEffect(() => {
+    //     changeNavBarTitleInBottom(pathname)
+    // }, [])
 
     return (
         <>
@@ -84,6 +72,8 @@ const Bottom = (props) => {
 }
 
 export default function Home() {
+    const navigate = useNavigate()
+
     const [title, setTitle] = useState("")
     // const [showTopNarBar,setShowTopNarBar] = useState(false)
 
@@ -98,9 +88,27 @@ export default function Home() {
     if (pathname !== '/home/main') {
         showTopNarBar = (
             <div className='home-top'>
-                <NavBar>{title}</NavBar>
+                <NavBar onBack={()=>{
+                    navigate(-1)
+                }}>{title}</NavBar>
             </div>)
     }
+
+    const changeNavBarTitleInBottom = (path) => {
+        if (path) {
+            let tab = tabs.find(x => {
+                return x.key === path;
+            })
+            if (tab) {
+                setTitle(tab.title)
+            }
+
+        }
+    }
+
+    useEffect(()=>{
+        changeNavBarTitleInBottom(pathname)
+    },[pathname])
 
     return (
         <div className='home'>
