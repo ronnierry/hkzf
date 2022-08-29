@@ -9,11 +9,12 @@
     border-bottom: solid 1px var(--adm-color-border);
 }
 
+
 .home .home-body {
     flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
 }
 
 .home .home-bottom {

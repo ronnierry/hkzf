@@ -13,27 +13,28 @@ import {
     UnorderedListOutline,
     UserOutline,
 } from 'antd-mobile-icons'
+import Main from "../Main";
 
 
 const Bottom = (props) => {
     const tabs = [
         {
-            key: '/home',
+            key: '/home/main',
             title: '首页',
             icon: <AppOutline />,
         },
         {
-            key: '/todo',
+            key: '/home/todo',
             title: '待办',
             icon: <UnorderedListOutline />,
         },
         {
-            key: '/news',
+            key: '/home/news',
             title: '消息',
             icon: <MessageOutline />,
         },
         {
-            key: '/my',
+            key: '/home/my',
             title: '我的',
             icon: <UserOutline />,
         },
@@ -84,15 +85,29 @@ const Bottom = (props) => {
 
 export default function Home() {
     const [title, setTitle] = useState("")
+    // const [showTopNarBar,setShowTopNarBar] = useState(false)
 
     const changeNavBarTitle = (title) => {
         setTitle(title)
     }
+
+    const location = useLocation()
+    const { pathname } = location
+
+    let showTopNarBar = null;
+    if (pathname !== '/home/main') {
+        showTopNarBar = (
+            <div className='home-top'>
+                <NavBar>{title}</NavBar>
+            </div>)
+    }
+
     return (
         <div className='home'>
-            <NavBar className='home-top' >{title}</NavBar>
+            {showTopNarBar}
             <div className='home-body'>
                 <Routes >
+                    <Route path="main" element={<Main></Main>}></Route>
                     <Route path="news" element={<News></News>}></Route>
                     <Route path="my" element={<My></My>}></Route>
                 </Routes>
